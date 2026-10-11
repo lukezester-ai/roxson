@@ -153,6 +153,17 @@ dl.spec dd{margin:0}
 .cform textarea{min-height:96px;resize:vertical}
 .cform .btn{background:var(--ink);color:#fff;justify-self:start}
 .cform .btn:hover{background:var(--patina)}
+.offers{padding-block:8px 16px}
+.offers h2{font-family:var(--serif);font-weight:600;font-size:clamp(28px,4vw,38px);margin:0 0 6px;line-height:1.15}
+.ogrid{display:grid;gap:14px;margin-top:20px}
+@media(min-width:820px){.ogrid{grid-template-columns:1.3fr 1fr}}
+.opanel{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:22px}
+.opanel h3{font-family:var(--serif);font-weight:600;font-size:21px;margin:0 0 6px}
+.opanel p{margin:0;color:var(--muted)}
+.tiers{list-style:none;margin:16px 0 0;padding:0}
+.tiers li{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+.tiers .q{font-size:17px}
+.tiers .pc{font-family:var(--serif);font-weight:600;font-size:26px;color:var(--patina);white-space:nowrap}
 footer{background:var(--ink);color:#9FB0B6;font-size:14px}
 footer .wrap{padding-block:22px;display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
 footer a{color:#EEF2F2}
@@ -172,6 +183,7 @@ footer a{color:#EEF2F2}
       <div class="navlinks" id="navLinks">
         <a href="#serii">Серии</a>
         <a href="#katalog">Каталог</a>
+        <a href="#otstapki">Отстъпки</a>
         <a href="#kontakti">Контакти</a>
       </div>
       <a class="call" href="tel:+359896835498">0896 835 498</a>
@@ -229,6 +241,29 @@ footer a{color:#EEF2F2}
       <div class="swatches" id="swatches" role="group" aria-label="Цвят"></div>
       <div class="count" id="count" aria-live="polite"></div>
       <ul class="grid" id="grid"></ul>
+    </div>
+  </section>
+
+  <section class="offers" id="otstapki">
+    <div class="wrap">
+      <h2>Отстъпки и персонализация</h2>
+      <p class="sub">Условия при покупка на количество и възможност за символи в ковчега.</p>
+      <div class="ogrid">
+        <div class="opanel">
+          <h3>Отстъпка при количество</h3>
+          <p>Колкото повече ковчези поръчвате, толкова по-голяма е отстъпката.</p>
+          <ul class="tiers">
+            <li><span class="q">При покупка на 5 ковчега</span><span class="pc">5%</span></li>
+            <li><span class="q">При покупка на 20 ковчега</span><span class="pc">10%</span></li>
+            <li><span class="q">При покупка на 30 ковчега</span><span class="pc">15%</span></li>
+            <li><span class="q">При покупка на 60 ковчега</span><span class="pc">30%</span></li>
+          </ul>
+        </div>
+        <div class="opanel">
+          <h3>Символи във вътрешната страна на капака</h3>
+          <p>Има възможност да се поставят всякакви символи, както християнски, така и католически, от вътрешната страна на капака на ковчега.</p>
+        </div>
+      </div>
     </div>
   </section>
 
