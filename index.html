@@ -154,10 +154,7 @@ dl.spec dd{margin:0}
 .cform textarea{min-height:96px;resize:vertical}
 .cform .btn{background:var(--ink);color:#fff;justify-self:start}
 .cform .btn:hover{background:var(--patina)}
-.cform .btn:disabled{opacity:.6;cursor:wait}
-.cform .status{margin:0;font-size:15px}
-.cform .status.ok{color:var(--patina)}
-.cform .status.err{color:#8A3A32}
+.cform .status{margin:0;font-size:15px;color:var(--patina)}
 .cform .honey{position:absolute;left:-9999px;height:0;width:0;opacity:0}
 .offers{padding-block:8px 16px}
 .offers h2{font-family:var(--serif);font-weight:600;font-size:clamp(28px,4vw,38px);margin:0 0 6px;line-height:1.15}
@@ -287,16 +284,16 @@ footer a{color:#EEF2F2}
         <form class="cform" id="cform" action="https://formsubmit.co/roxson.ltd@gmail.com" method="POST">
           <input type="hidden" name="_subject" value="Запитване от сайта ROXSON">
           <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_next" value="https://roxson.onrender.com/?sent=1#kontakti">
           <input class="honey" type="text" name="_honey" tabindex="-1" autocomplete="off">
           <label class="field">Име
-            <input id="fName" name="Име" type="text" autocomplete="name">
+            <input id="fName" name="Име" type="text" autocomplete="name" required>
           </label>
           <label class="field">Телефон за връзка
-            <input id="fPhone" name="Телефон" type="tel" autocomplete="tel">
+            <input id="fPhone" name="Телефон" type="tel" autocomplete="tel" required>
           </label>
           <label class="field">Съобщение
-            <textarea id="fMsg" name="Съобщение" placeholder="Номер на модел, количество"></textarea>
+            <textarea id="fMsg" name="Съобщение" placeholder="Номер на модел, количество" required></textarea>
           </label>
           <button class="btn" id="fSend" type="submit">Изпрати по имейл</button>
           <p class="status" id="fStatus" role="status"></p>
@@ -508,54 +505,9 @@ function openDlg(i){
 $('#dClose').addEventListener('click', () => dlg.close());
 dlg.addEventListener('click', e => { if(e.target === dlg) dlg.close(); });
 
-const INQUIRY_EMAIL = 'roxson.ltd@gmail.com';
-$('#cform').addEventListener('submit', async e => {
-  e.preventDefault();
-  const btn = $('#fSend');
-  const status = $('#fStatus');
-  const name = $('#fName').value.trim();
-  const phone = $('#fPhone').value.trim();
-  const msg = $('#fMsg').value.trim();
-  if (!name && !phone && !msg) {
-    status.className = 'status err';
-    status.textContent = 'Попълнете поне име, телефон или съобщение.';
-    return;
-  }
-  btn.disabled = true;
-  status.className = 'status';
-  status.textContent = 'Изпраща се…';
-  try {
-    const res = await fetch('https://formsubmit.co/ajax/' + INQUIRY_EMAIL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({
-        Име: name,
-        Телефон: phone,
-        Съобщение: msg,
-        _subject: 'Запитване от сайта ROXSON',
-        _template: 'table',
-        _captcha: 'false'
-      })
-    });
-    const data = await res.json().catch(() => ({}));
-    const message = String(data.message || '');
-    if (/activat/i.test(message)) {
-      status.className = 'status ok';
-      status.textContent = 'Отворете ' + INQUIRY_EMAIL + ' и потвърдете формата. След това запитванията ще пристигат в тази поща.';
-    } else if (!res.ok || data.success === false || data.success === 'false') {
-      throw new Error(message || 'fail');
-    } else {
-      status.className = 'status ok';
-      status.textContent = 'Запитването е изпратено на ' + INQUIRY_EMAIL + '.';
-      e.target.reset();
-    }
-  } catch (err) {
-    status.className = 'status err';
-    status.textContent = 'Не успяхме да изпратим запитването. Пишете директно на ' + INQUIRY_EMAIL + '.';
-  } finally {
-    btn.disabled = false;
-  }
-});
+if (new URLSearchParams(location.search).get('sent') === '1') {
+  $('#fStatus').textContent = 'Запитването е изпратено на roxson.ltd@gmail.com.';
+}
 
 buildTabs(); buildSeries(); buildSwatches(); render();
 </script>
